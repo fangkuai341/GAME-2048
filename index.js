@@ -38,13 +38,26 @@ const moveUp = () => {
     }
     nowArr = [];
   });
-  console.log(arrView, "arrView");
 };
 const moveRight = () => {};
-const moveDown = () => {};
+const moveDown = () => {
+  //取出第一列
+  let nowArr = [];
+  arrView.forEach((item, index) => {
+    arrView.forEach((rowItem, rowIndex) => {
+     nowArr.push(arrView[rowIndex][index]);
+    });
+    let newArr = rule(nowArr);
+    for (let i = arrView.length-1; i >-1; i--) {
+      arrView[i][index] = newArr[arrView.length-i-1];
+    }
+    nowArr = [];
+  });
+};
 const rule = (arr) => {
-  arrLength = arr.length;
-  for (let i = 0; i < arrLength; i++) {
+ let arrLength = arr.length;
+  arr = arr.filter((item) => item != 0);
+  for (let i = 0; i <  arr.length; i++) {
     if (arr[i] == arr[i + 1]) {
       arr[i] = arr[i] + arr[i + 1];
       arr.splice(i + 1, 1);
@@ -56,5 +69,6 @@ const rule = (arr) => {
       arr[i] = 0;
     }
   }
+
   return arr;
 };
